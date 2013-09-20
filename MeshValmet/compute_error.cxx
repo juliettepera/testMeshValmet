@@ -42,13 +42,7 @@
  */
 
 
-
-
-
-
-
-#include <compute_error.h>
-
+#include <MeshValmet/compute_error.h>
 
 
 /* Use a bitmap for marking empty cells. Otherwise use array of a simple
@@ -256,10 +250,13 @@ static void finalize_face_error(struct model_error *me,
   n_faces = me->mesh->num_faces;
   fe = me->fe;
   fe[0].serror = m_stats->dist_smpl;
-  for (i=1; i<n_faces; i++) {
+
+  for (i=1; i<n_faces; i++)
+  {
     n = fe[i-1].sample_freq;
     fe[i].serror = fe[i-1].serror+n*(n+1)/2;
   }
+
 }
 
 /* Reallocates the buffers of tse to store the sample errors for a triangle
@@ -1600,30 +1597,45 @@ void free_face_error(struct face_error *fe)
 /* See compute_error.h */
 void calc_vertex_error(struct model_error *me, int *nv_empty, int *nf_empty)
 {
+  // note: redefine macro min max ( when include iostream -> conflict )
+  fflush(stdout);
+
   int i,n;
 
   /* Initialize */
   me->verror = (float *)xa_realloc(me->verror,me->mesh->num_vert*sizeof(*(me->verror)));
+
   for (i=0; i<me->mesh->num_vert; i++) {
     me->verror[i] = -1; /* special flag value */
   }
 
   /* Get the error values at the vertices of each face */
   *nf_empty = 0;
-  for (i=0; i<me->mesh->num_faces; i++) {
+
+  printf( " nb face : %d  " , me->mesh->num_faces );
+
+  for (i=0; i<me->mesh->num_faces; i++)
+  {
     n = me->fe[i].sample_freq;
-    if (n <= 1) { /* no samples at face vertices */
+    if (n <= 1)
+    { /* no samples at face vertices */
+
       if (n == 0) (*nf_empty)++; /* no samples for this face */
-      if (me->verror[me->mesh->faces[i].f0] == -1) {
-        me->verror[me->mesh->faces[i].f0] = -2; /* special flag value */
+      if (me->verror[me->mesh->faces[i].f0] == -1)
+      {
+        me->verror[me->mesh->faces[i].f0] = -2; // special flag value
       }
-      if (me->verror[me->mesh->faces[i].f1] == -1) {
-        me->verror[me->mesh->faces[i].f1] = -2; /* special flag value */
+      if (me->verror[me->mesh->faces[i].f1] == -1)
+      {
+        me->verror[me->mesh->faces[i].f1] = -2; // special flag value
       }
-      if (me->verror[me->mesh->faces[i].f2] == -1) {
-        me->verror[me->mesh->faces[i].f2] = -2; /* special flag value */
+      if (me->verror[me->mesh->faces[i].f2] == -1)
+      {
+        me->verror[me->mesh->faces[i].f2] = -2; // special flag value
       }
-    } else {
+    }
+    else
+    {
       me->verror[me->mesh->faces[i].f0] = (float)me->fe[i].serror[0];
       me->verror[me->mesh->faces[i].f1] = (float)me->fe[i].serror[n*(n+1)/2-1];
       me->verror[me->mesh->faces[i].f2] = (float)me->fe[i].serror[n-1];

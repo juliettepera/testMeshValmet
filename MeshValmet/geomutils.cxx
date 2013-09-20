@@ -43,13 +43,9 @@
 
 
 
-
-
-
-
-#include <3dmodel.h>
 #define _GEOMUTILS_C_
-#include <geomutils.h> /* catch the inlined functions */
+
+#include <MeshValmet/geomutils.h> /* catch the inlined functions */
 
 
 /* Rotates the point 'p' around the axis 'u' */

@@ -47,7 +47,7 @@
 
 
 
-#include <3dmodel.h>
+#include <MeshValmet/3dmodel.h>
 
 #ifndef _GEOMUTILS_PROTO_
 #define _GEOMUTILS_PROTO_
@@ -169,7 +169,7 @@ extern "C" {
 
   /* Returns the distance between vertices v1 and v2 */
   INLINE float dist_v(const vertex_t *v1, const vertex_t *v2) {
-    vertex_t tmp;
+      vertex_t tmp;
   
     tmp.x = v1->x - v2->x;
     tmp.y = v1->y - v2->y;

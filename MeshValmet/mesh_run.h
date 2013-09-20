@@ -41,26 +41,32 @@
  *
  */
 
-
-
-
-
-
-
 #ifndef _MESH_RUN_PROTO
 #define _MESH_RUN_PROTO
 
-#include <compute_error.h>
+// MeshValmet Libraries
+#include <MeshValmet/compute_error.h>
+#include <MeshValmet/read_model.h>
+#include <MeshValmet/geomutils.h>
+#include <MeshValmet/compute_volume_overlap.h>
+
+// vtk Libraries
+#include <vtkSmartPointer.h>
+#include <vtkPolyData.h>
+#include <vtkPolyDataReader.h>
+#include <vtkCellArray.h>
+#include <vtkPoints.h>
+#include <vtkIdTypeArray.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkCamera.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindow.h>
+#include <vtkPolyDataNormals.h>
+
+// Other Libraries
 #include <time.h>
 #include <string.h>
-#include <compute_error.h>
 
-//#include <xalloc.h>
-//#include <model_analysis.h>
-//#include <model_in.h>
-//#include <geomutils.h>
-//#include <read_model.h>
-//#include <reporting.h>
 
 #ifdef __cplusplus
 #define BEGIN_DECL extern "C" {
@@ -72,6 +78,13 @@
 
 BEGIN_DECL
 #undef BEGIN_DECL
+
+#ifndef min
+#  define min(__X, __Y) ((__X)<(__Y)?(__X):(__Y))
+#endif
+#ifndef max
+#  define max(__X, __Y) ((__X)>(__Y)?(__X):(__Y))
+#endif
 
 /* To store the parsed arguments */
 struct args {
@@ -102,6 +115,9 @@ void mesh_run(const struct args *args, struct model_error *model1,
               struct prog_reporter *progress, struct dist_surf_surf_stats *stats,
               struct dist_surf_surf_stats *stats_rev, double *abs_sampling_step,
               double *abs_sampling_dens);
+
+model* ConvertDataToModel( vtkSmartPointer <vtkPolyData> Data );
+vtkSmartPointer <vtkPolyData> ConvertFileToData( char* File );
 
 END_DECL
 #undef END_DECL

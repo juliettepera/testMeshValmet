@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="pushButtonLoad">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>20</x>
       <y>30</y>
       <width>92</width>
       <height>27</height>
@@ -30,9 +30,9 @@
    <widget class="QLineEdit" name="lineEditMeshA">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>20</x>
       <y>70</y>
-      <width>113</width>
+      <width>231</width>
       <height>27</height>
      </rect>
     </property>
@@ -40,21 +40,85 @@
    <widget class="QLineEdit" name="lineEditMeshB">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>20</x>
       <y>100</y>
-      <width>113</width>
+      <width>231</width>
       <height>27</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="widget" native="true">
+   <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>50</y>
+      <x>270</x>
+      <y>60</y>
       <width>511</width>
       <height>431</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>511</width>
+      <height>431</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>511</width>
+      <height>431</height>
+     </size>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>509</width>
+       <height>429</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButtonError">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>210</y>
+      <width>92</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Error</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonDisplay">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>92</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Display</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonDisplayError">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>270</y>
+      <width>92</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Display Err</string>
     </property>
    </widget>
   </widget>

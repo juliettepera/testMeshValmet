@@ -212,10 +212,10 @@ void MeshValmetControls::Model1Open()
     if( Model1File.right(4).lower() == ".vtk" )
     {
         std::cout << " vtk file need to be read " << std::endl;
-        /*
-        struct model* Model1 = read_model_vtk( Model1File.latin1() );
-        m_Mesh1 = BuildMeshFromModel( Model1 );
-        */
+
+        //struct model* Model1 = read_model_vtk( Model1File.latin1() );
+        //m_Mesh1 = BuildMeshFromModel( Model1 );
+
     }
     /* ------------------------------> create the model from a vtk file and then the poly data <------------------------------------*/
 

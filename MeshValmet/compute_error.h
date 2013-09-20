@@ -57,10 +57,12 @@
  * --------------------------------------------------------------------------*
  */
 
-#include <model_analysis.h>
-#include <reporting.h>
-#include <geomutils.h>
-#include <xalloc.h>
+
+// MeshValmet Libraries
+#include <MeshValmet/model_analysis.h>
+#include <MeshValmet/geomutils.h>
+
+// Other Libraries
 #include <math.h>
 #include <assert.h>
 

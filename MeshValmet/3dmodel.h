@@ -51,11 +51,13 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+
 /* with '-ansi' flag and still use the */
 /* useful constants from 'math.h' */
 #ifndef __USE_BSD
 # define __USE_BSD
 #endif
+
 #include <math.h>
 #include <limits.h>
 #include <float.h>

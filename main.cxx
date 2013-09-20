@@ -1,4 +1,4 @@
-#include "MeshValmetControls.h"
+#include "testMeshValmet.h"
 
 int main( int argc , char* argv[] )
 {
@@ -6,11 +6,10 @@ int main( int argc , char* argv[] )
       QApplication app( argc , argv );
 
       QWidget * parent = 0;
-      const char* name = "essai";
+      Qt::WFlags f = 0;
 
-      MeshValmetControls myMeshValmet( parent , name );
-
-      //myMeshValmet.show();
+      testMeshValmet mytestMeshValmet( parent , f );
+      mytestMeshValmet.show();
 
       return app.exec();
 

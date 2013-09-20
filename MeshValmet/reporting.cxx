@@ -47,14 +47,8 @@
 
 
 
-#include <reporting.h>
+#include <MeshValmet/reporting.h>
 
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <xalloc.h>
 
 /* Minimum amount of free space in buffer */
 #define OUTBUF_MIN_FREE (2*OUTBUF_MAX_SZ)

@@ -54,6 +54,15 @@
  * --------------------------------------------------------------------------*
  */
 
+// MeshValmet Libraries
+#include <MeshValmet/xalloc.h>
+
+// Other Libraries
+#include <assert.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 
 #ifdef __cplusplus
 #define BEGIN_DECL extern "C" {

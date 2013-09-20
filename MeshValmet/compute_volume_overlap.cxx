@@ -3,9 +3,13 @@
 #ifndef COMPUTE_VOLUME_OVERLAP_C
 #define COMPUTE_VOLUME_OVERLAP_C
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <float.h>
+#include <memory.h>
 
-
-#include <compute_volume_overlap.h>
+#include <MeshValmet/compute_volume_overlap.h>
 
 /* --------------------------------------------------------------------------*
  *                    Local data type                                        *

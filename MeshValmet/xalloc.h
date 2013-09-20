@@ -1,4 +1,4 @@
-/* $Id: TextWidget.h,v 1.1 2005/05/24 07:37:58 xushun Exp $ */
+/* $Id: xalloc.h,v 1.1 2005/05/24 07:37:58 xushun Exp $ */
 
 
 /*
@@ -47,35 +47,47 @@
 
 
 
-#include <qpushbutton.h>
-#include <qtextview.h>
-#include <qlayout.h>
+/*
+ * xalloc: non-failing memory allocation functions
+ */
 
-#ifndef _TEXTWIDGET_PROTO
-#define _TEXTWIDGET_PROTO
+#ifndef _XALLOC_PROTO
+#define _XALLOC_PROTO
+
+// Other Libraries
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
-extern "C" {
-#endif
-  /* Called within a C function via its pointer -> make it "extern C" */
-  void TextWidget_puts(void *out, const char *str);
-
-#ifdef __cplusplus
-}
+#define BEGIN_DECL extern "C" {
+#define END_DECL }
+#else
+#define BEGIN_DECL
+#define END_DECL
 #endif
 
-class TextWidget : public QWidget {
-
-public:
-  TextWidget(QWidget *parent=0, const char *name=0);
-  ~TextWidget();
-  void append(const QString &str);
-  QSize sizeHint() const;
-
-
-private:
-  QGridLayout *layout;
-  QTextView *view;
-  QPushButton *butClose;
-};
+/* Give hints for more optimization */
+#if defined(__GNUC__) && (__GNUC__ > 2 || __GNUC__ == 2 && __GNUC_MINOR__ >= 96)
+#define XALLOC_ATTR __attribute__ ((__malloc__))
+#else
+#define XALLOC_ATTR
 #endif
+
+BEGIN_DECL
+#undef BEGIN_DECL
+
+/* Same as malloc, but exits if out of memory. */
+void * xa_malloc(size_t size) XALLOC_ATTR;
+
+/* Same as calloc, but exits if out of memory. */
+void * xa_calloc(size_t nmemb, size_t size) XALLOC_ATTR;
+
+/* Same as realloc, but exits if out of memory. Not suitable for the
+ * XALLOC_ATTR since it might return the same address multiple times. */
+void * xa_realloc(void *ptr, size_t size);
+
+END_DECL
+#undef END_DECL
+
+#endif /* _XALLOC_PROTO */

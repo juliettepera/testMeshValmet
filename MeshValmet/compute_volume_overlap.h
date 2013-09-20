@@ -3,11 +3,7 @@
 #ifndef _COMPUTE_VOLUME_OVERLAP_PROTO
 #define _COMPUTE_VOLUME_OVERLAP_PROTO
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <float.h>
-#include <memory.h>
+
 
 #ifdef __cplusplus
 #define BEGIN_DECL extern "C" {

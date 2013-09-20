@@ -1,4 +1,4 @@
-/* $Id: TextWidget.cxx,v 1.1 2005/05/24 07:37:58 xushun Exp $ */
+/* $Id: xalloc.cxx,v 1.1 2005/05/24 07:37:58 xushun Exp $ */
 
 
 /*
@@ -48,56 +48,38 @@
 
 
 
-#include <TextWidget.h>
-#include <qapplication.h>
+#include <MeshValmet/xalloc.h>
 
-TextWidget::TextWidget(QWidget *parent, const char *name)
-  : QWidget(parent, name) {
-  QFont font(QApplication::font());
 
-  layout = new QGridLayout(this,2,1);
-  view = new QTextView(this);
-
-#if QT_VERSION >= 300 // Only in Qt >= 3.0
-  view->setWordWrap(QTextEdit::NoWrap);
-#endif
-
-  view->setTextFormat(Qt::PlainText);
-  font.setFamily("courier");
-  font.setStyleHint(QFont::TypeWriter,QFont::PreferQuality);
-  font.setFixedPitch(TRUE);
-  font.setPointSize(9);
-  view->setFont(font);
-  layout->addWidget(view,0,0);
-  butClose = new QPushButton("Close", this);
-  layout->addWidget(butClose,1,0,Qt::AlignCenter);
-
-  connect(butClose, SIGNAL(clicked()), this, SLOT(close()));
-
-  setCaption("Mesh execution log");
-}
-
-TextWidget::~TextWidget()
+static void _xa_outofmem(size_t size)//size_t == unsigned int
 {
-  delete view;
-  delete layout;
-  delete butClose;
+  fprintf(stderr,"Out of memory (requested %u bytes). Exit\n",size);
+  fprintf(stderr,
+          "To locate the offending function call, put a breakpoint\n"
+          "with a debugger in the _xa_outofmem function.\n");
+  exit(1);
 }
 
-QSize TextWidget::sizeHint() const {
-  return QSize(600,500);
+void * xa_malloc(size_t size)
+{
+  void *ptr;
+  ptr = malloc(size);
+  if (ptr == NULL) _xa_outofmem(size);
+  return ptr;
 }
 
-void TextWidget::append(const QString &str) {
-  // The append() method of QT's TextView is buggy. Use the recommended
-  // workaround.
-  view->setText(view->text()+str);
-  qApp->processEvents(100);
+void * xa_calloc(size_t nmemb, size_t size)
+{
+  void *ptr;
+  ptr = calloc(nmemb,size);
+  if (ptr == NULL) _xa_outofmem(nmemb*size);
+  return ptr;
 }
 
-void TextWidget_puts(void *out, const char *str) {
-  TextWidget *tw;
-
-  tw = (TextWidget*) out;
-  tw->append(QString(str));
+void * xa_realloc(void *ptr, size_t size)
+{
+  void *new_ptr;
+  new_ptr = realloc(ptr,size);
+  if (new_ptr == NULL && size != 0) _xa_outofmem(size);
+  return new_ptr;
 }
