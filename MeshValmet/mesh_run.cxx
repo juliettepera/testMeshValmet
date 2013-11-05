@@ -84,6 +84,8 @@ void mesh_run(const struct args *args, struct model_error *model1,
   Data1 = ConvertFileToData( args -> m1_fname );
   model1->mesh = ConvertDataToModel( Data1 );
 
+  std::cout << " model 1 : " << model1->mesh->faces[0].f0 << std::endl;
+
   outbuf_printf(out,"Done (%.2f secs)\n", (double)(clock()-start_time)/CLOCKS_PER_SEC);
   outbuf_printf(out,"Reading %s ... ",args -> m2_fname);
   outbuf_flush(out);
